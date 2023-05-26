@@ -5,7 +5,7 @@
             <form @submit.prevent="submitted()">
                 <div class="bold">Password*</div>
                 <input type="password" id="createpassword" placeholder="Create password" required :maxlength="max" v-model="createpassword" />
-                <p>Must be at least 8 characters</p>
+                <p v-if="!correctlength">Must be at least 8 characters</p>
 
                 <div class="bold">Confirm Password*</div>
                 <input type="password" id="confirmpassword" placeholder="Confirm password" v-model="confirmpassword" :maxlength="max"/>
@@ -51,7 +51,10 @@ export default {
         },
         err(){
             return this.createpassword === this.confirmpassword
-        }
+        },
+        correctlength(){
+            return this.createpassword.length === this.max
+        },
     }
 }
 </script>
@@ -76,9 +79,6 @@ h6{
 
     color: red;
     font-size: 13px;
-}
-.incorrect{
-    outline-color: red;
 }
 
 </style>
