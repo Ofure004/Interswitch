@@ -1,20 +1,20 @@
 <template>
     <AuthLayout>
         <div class="container">
-            <h2> Set your password </h2>
+            <h2 class="big_text"> Set your password </h2>
             <form @submit.prevent="submitted()">
                 <div class="bold">Password*</div>
-                <input type="password" id="createpassword" placeholder="Create password" required :maxlength="max" v-model="createpassword" />
+                <input type="password" id="createpassword" placeholder="Create password" class="input" required :maxlength="max" v-model="createpassword" />
                 <p v-if="!correctlength">Must be at least 8 characters</p>
 
                 <div class="bold">Confirm Password*</div>
-                <input type="password" id="confirmpassword" placeholder="Confirm password" v-model="confirmpassword" :maxlength="max"/>
+                <input type="password" id="confirmpassword" placeholder="Confirm password" class="input" v-model="confirmpassword" :maxlength="max"/>
                 <h6 v-if="!err">Passwords must match!</h6>
 
-                <button v-if="!fieldIsFilled">Create Account</button>
-                <RouterLink to="/" type="button" class="button" v-else-if="fieldIsFilled || err ">Create Account</RouterLink>
+                <button class="button" v-if="!fieldIsFilled">Create Account</button>
+                <RouterLink to="/" type="button" class="button link" v-else-if="fieldIsFilled || err ">Create Account</RouterLink>
             </form>
-            <div>Already have an account?<router-link class="signup" to="/"> Login </router-link></div>
+            <div>Already have an account?<router-link class="signup link" to="/"> Login </router-link></div>
 
         </div>
     </AuthLayout>

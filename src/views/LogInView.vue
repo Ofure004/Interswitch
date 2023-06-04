@@ -1,23 +1,23 @@
 <template>
     <AuthLayout>
         <div class="container">
-            <h2> Log in to your account </h2>
+            <h2 class="big_text"> Log in to your account </h2>
             <p>Welcome back! Please enter your details</p>
             <form>
                 <div class="bold">Email</div>
-                <input type="email" id="email" placeholder="Enter your email" v-model="email" required/>
+                <input type="email" id="email" placeholder="Enter your email" v-model="email" required class="input"/>
 
                 <div class="bold">Password</div>
-                <input type="password" id="password" placeholder="........" v-model="password" required :maxlength="max"/>
+                <input type="password" id="password" placeholder="........" v-model="password" required :maxlength="max" class="input"/>
 
                 <div class="password-control">
                     <input type="checkbox" id="rememberpassword" v-model="rememberpassword"/>
                     <label for="rememberpassword"> Remember for 30 days</label>
-                    <a href="#"> Forgot Password</a>
+                    <a href="#" class="link"> Forgot Password</a>
                 </div>
-                <button id="submit">Sign in</button>
+                <button id="submit" class="button">Sign in</button>
             </form>
-            <div>Don't have an account?<router-link to="/signup" class="signup">Signup</router-link></div>
+            <div>Don't have an account?<router-link to="/signup" class="signup link">Signup</router-link></div>
         </div>
     </AuthLayout>
 </template>
@@ -44,6 +44,15 @@ export default {
     padding: 0;
     margin: 0;
 }
+.link{
+    text-decoration: none;
+    color: #33536F;
+}
+.big_text{ 
+    margin-bottom: 0;
+    font-weight: 600;
+    line-height: unset;
+}
 .container{
     margin: 0 auto;
     display: flex;
@@ -67,7 +76,7 @@ label{
     font-size: 14px;
     font-weight: bold;
 }
-input{
+.input{
     margin-bottom: 1rem;
     padding: 13px 14px;
     border-radius: 8px;
@@ -78,7 +87,7 @@ input{
     line-height: 24px;
     color:#344054;
 }
-input:focus{
+.input:focus{
     outline-color: #33536F;
 }
 a{
@@ -87,7 +96,7 @@ a{
     font-weight: bold;
     font-size: 16px;
 }
-button{
+.button{
     text-align: center;
     padding: 13px 18px;
     border-radius: 8px;
@@ -97,6 +106,7 @@ button{
     margin-bottom: 21px;
     font-family: 'Outfit', sans-serif;
     font-size: 16px;
+    font-weight: 500;
 }
 *::placeholder {
     font-family: 'Outfit', sans-serif;
@@ -128,5 +138,13 @@ span{
 .bold
 label{
     color:#344054;
+}
+#rememberpassword{
+    margin-right: 8px;
+    border: 1px solid #D0D5DD;
+    background-color: #D0D5DD;
+}
+.password-control{
+    margin-bottom: 13px;
 }
 </style>

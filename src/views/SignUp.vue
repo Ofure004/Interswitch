@@ -1,19 +1,19 @@
 <template>
     <AuthLayout>
         <div class="container">
-            <h2> Create Account </h2>
+            <h2 class="big_text"> Create Account </h2>
             <p>Welcome back! Please enter your details</p>
             <form>
-                <div class="form-control">
+                <div class="form_control">
 
                     <div class="column">
                         <div class="bold">First Name</div>
-                        <input type="text" id="fname" placeholder="Enter firstname" v-model="fname" required/>
+                        <input type="text" id="fname" placeholder="Enter firstname" v-model="fname" required class="input"/>
                     </div>
 
                     <div class="column">
                         <div class="bold">Last Name</div>
-                        <input type="text" id="lname" placeholder="Enter lastname" v-model="lname" required/>
+                        <input type="text" id="lname" placeholder="Enter lastname" v-model="lname" required class="input"/>
                     </div>
 
                 </div>
@@ -22,13 +22,13 @@
                     <div class="bold">Email Address</div>
                     <h6 v-if="!isValidEmail && this.emailStore.email">Invalid input!</h6>
                 </div>
-                <input type="email" id="email" placeholder="Enter email address" v-model="this.emailStore.email"/>
+                <input type="email" id="email" placeholder="Enter email address" v-model="this.emailStore.email" class="input"/>
 
                 <div class="bold">Phone Number</div>
-                <input type="text" id="pNumber" placeholder="Enter phone number" v-model="pNumber" @input="filterNonNumeric()" :maxlength="max"/>
+                <input type="text" id="pNumber" placeholder="Enter phone number" v-model="pNumber"  class="input" @input="filterNonNumeric()" :maxlength="max"/>
 
                 <div class="bold">Business Name</div>
-                <input type="text" id="bName" placeholder="Enter business name" v-model="bName" required/>
+                <input type="text" id="bName" placeholder="Enter business name" v-model="bName"  class="input" required/>
 
                 <div class="bold">Country</div>
                 <select name="countries" v-model="dropdown">
@@ -38,10 +38,10 @@
                 <h6 v-if="!fieldIsFilled && show">All fields must be filled correctly!</h6>
 
 
-                <a class="button" v-if="!fieldIsFilled" @click="display()">Create Account</a>
-                <RouterLink to="/verification" type="button" class="button" v-else>Create Account</RouterLink>
+                <a class="button link" v-if="!fieldIsFilled" @click="display()">Create Account</a>
+                <RouterLink to="/verification" type="button" class="button link" v-else>Create Account</RouterLink>
             </form>
-            <div>Already have an account?<router-link class="signup" to="/"> Login </router-link></div>
+            <div>Already have an account?<router-link class="signup link" to="/"> Login </router-link></div>
         </div>
     </AuthLayout>
 </template>
@@ -258,7 +258,7 @@ export default {
             bName: '',
             show: false,
             dropdown: '',
-            max: 10
+            max: 11
         }
     },
     computed: {
@@ -281,7 +281,7 @@ export default {
 }
 </script>
 <style>
-.form-control{
+.form_control{
     display: flex;
     flex-direction: row;
     gap: 25px;

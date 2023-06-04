@@ -3,6 +3,7 @@ import SignUp from '../views/SignUp.vue';
 import LogInView from '../views/LogInView.vue';
 import Verify from '../views/Verify.vue';
 import Setpassword from '../views/SetPasswordView.vue';
+import Dashboard from '../views/DashboardView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -29,6 +30,11 @@ const router = createRouter({
       path: '/setpassword',
       name: 'setpassword',
       component: Setpassword
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: Dashboard
     },
 
 

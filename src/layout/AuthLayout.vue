@@ -1,6 +1,6 @@
 <template>
     <div class="authentication">
-        <img src="src/assets/image 2.png" alt="logo"/>
+        <img src="src/assets/image 2.png" alt="logo" style="margin-bottom: 20px;"/>
         <slot></slot>
     </div>
 </template>
@@ -12,7 +12,9 @@ export default {
 </script>
 <style>
 .authentication{
-
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    margin: 0 auto;
     width: 70%;
     display: flex;
     flex-direction: column;

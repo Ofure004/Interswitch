@@ -1,7 +1,7 @@
 <template>
     <AuthLayout>
         <div class="container">
-            <h3> Verify your email address </h3>
+            <h3 style="margin-bottom: 0;"> Verify your email address </h3>
             <p> Enter OTP sent to {{ this.emailStore.email }} </p>
             <form>
                 <div class="row">
@@ -10,10 +10,10 @@
                     <input type="text" id="otp" placeholder="0" v-model="otp2" :maxlength="max" @input ="filterNonNumeric()"/>
                     <input type="text" id="otp" placeholder="0" v-model="otp3" :maxlength="max" @input ="filterNonNumeric()"/>
                 </div>
-                <a class="button" v-if="!fieldIsFilled">Verify email</a>
-                <RouterLink to="/setpassword" type="button" class="button" v-else>Verify email</RouterLink>
+                <a class="button link" v-if="!fieldIsFilled">Verify email</a>
+                <RouterLink to="/setpassword" type="button" class="button link" v-else>Verify email</RouterLink>
             </form>
-            <div>Didn't get a code?<a class="signup">Resend OTP</a></div>
+            <div>Didn't get a code?<a class="signup link">Resend OTP</a></div>
 
         </div>
     </AuthLayout>
@@ -63,19 +63,23 @@ form{
     justify-content: center;
 }
 #otp{
-    width: 30px;
-    height: 21px;
+    width: 60px;
+    /* height: 21px; */
     text-align: center;
     font-weight: bold;
     font-size: 21px;
+    padding: 10px 7px;
+    border:1px solid #D0D5DD;
+    border-radius: 8px ;
 }
 body{
     padding-top: 50px;
 }
 #otp::placeholder{
-    font-weight: bold;
-    font-size: 21px;
+    font-weight: 500;
+    font-size: 27px;
     text-align: center;
+    color:#D0D5DD;
 }
 p{
     margin-bottom: 20px;
