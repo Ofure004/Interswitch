@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="flex-col transactions">
-                    <div class="big"> Transactions </div>
+                    <div class="big"> Transactions {{ this.items[0].status }}</div>
                     <div class="flex-row searchbar">
                         <input type="text" id="search" name="search" placeholder="Search transactions">
                         <div class="filter">
@@ -51,14 +51,16 @@
                 </div>
             </div>
                 <div class="big_table">
-                    <b-table striped hover :items="items" :fields="fields" class="small_table" :per-page="perPage" :current-page="currentPage">
+                    <b-table striped hover :items="items" :fields="fields" class="mini_table" :per-page="perPage" :current-page="currentPage">
+                        
                         <template #cell(photo) class="image">
                             <div class="image"></div>
                         </template>
-                        <template #cell(status)>
-                            <div v-if="isSuccessful" class="success"> SUCCESSFUL</div>
-                            <div v-else  class="fail"> FAILED</div>
+                        <template #cell(status)="data">
+                            <div v-if="data.value === 'SUCCESSFUL'" class="success"> SUCCESSFUL</div>
+                            <div v-else class="fail"> FAILED</div>
                         </template>
+                        <template #table-caption> 20 results </template>
                     </b-table>
                     <div class="pagin">
                         <div class="show">
@@ -268,7 +270,7 @@ export default {
                 trans_reference: '40993LKYME',
                 payment_reference: 'Debt',
                 date: '10 Jan 2023',
-                status: 'FAILED',
+                status: 'SUCCESSFUL',
                 photo: ''
             },
             {
@@ -279,7 +281,7 @@ export default {
                 trans_reference: '40993LKYME',
                 payment_reference: 'Payment for Apple Music for May',
                 date: '10 Jan 2023',
-                status: 'FAILED',
+                status: 'SUCCESSFUL',
                 photo: ''
             },
             {
@@ -323,7 +325,7 @@ export default {
                 trans_reference: '40993LKYME',
                 payment_reference: 'Uber payment',
                 date: '10 Jan 2023',
-                status: 'FAILED',
+                status: 'SUCCESSFUL',
                 photo: ''
             },
             {
@@ -334,7 +336,7 @@ export default {
                 trans_reference: '40993LKYME',
                 payment_reference: 'Manage this one for now',
                 date: '10 Jan 2023',
-                status: 'FAILED',
+                status: 'SUCCESSFUL',
                 photo: ''
             },
             {
@@ -345,7 +347,7 @@ export default {
                 trans_reference: '40993LKYME',
                 payment_reference: 'Netflix',
                 date: '10 Jan 2023',
-                status: 'FAILED',
+                status: 'SUCCESSFUL',
                 photo: ''
             },
             {
@@ -384,29 +386,22 @@ export default {
         }
     },
     computed: {
-        isSuccessful(){
-            return this.items.status == 'SUCCESSFUL';
-        },
-        isFailed(){
-            return this.items.status === 'FAILED';
-        },
         isDisplayed(){
             return this.isFunded || this.isWithdrawn || this.isProceeded || this.isSuccess || this.isFail;
         }
 
     },
     methods:{
-        // color(){
-        //     if (this.items.status == 'failed'){
-        //         this.isSuccessful == true
-        //     } else{
-        //         this.isFailed == true
-        //     }
-        // }
+        color(){
+            for(var item of this.items){
+                if(item.status === 'SUCCESSFUL'){
+                    this.isSuccessful = true;
+                }
+            }
+        },
         fund(){
             this.isFunded = !this.isFunded;
             console.log(this.isSuccessful);
-            console.log(this.items.status)
         },
         withdraw(){
             this.isWithdrawn = !this.isWithdrawn;
@@ -431,6 +426,9 @@ export default {
             this.isFail = false;
         }
     },
+    beforeMount(){
+        this.color()
+    }
 
 }
 </script>
@@ -541,24 +539,22 @@ input{
 input::placeholder{
     font-size: 14px;
 }
-.small_table{
+.mini_table{
     width: 100%;
     background-color: #FFFFFF;
-    border: 1px solid #EAECF0;
-    border-radius: 8px; 
+    border: 1px solid #EAECF0; 
+    padding: unset  !important;
+    margin-bottom: 0;
+}
+/* .table> :not(caption) > * > *{
     padding: unset;
-    margin-bottom: .25rem;
-}
-table{
-    border-collapse: collapse;
-    padding: 0;
-}
-td{
-    padding: 18px;
+} */
+.table > tbody > tr > td{
+    padding: 18px 10px;
     color: #475467;
-    padding-right: 10px;
+    /* padding-right: 10px; */
 }
-th{
+.table > thead > tr > th{
     padding-top: 16px;
     padding-bottom: 20px;
     padding-left: 16px;
@@ -715,6 +711,7 @@ ul.pagination.b-pagination {
     justify-content: end;
     padding-right: 10px;
     gap: 10px;
+    margin: 20px 0;
 }
 .select{
     padding: 4px 4px;

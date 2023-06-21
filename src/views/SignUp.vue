@@ -8,30 +8,31 @@
 
                     <div class="column">
                         <div class="bold">First Name</div>
-                        <input type="text" id="fname" placeholder="Enter firstname" v-model="fname" required class="input"/>
+                        <input type="text" id="fname" placeholder="Enter firstname" v-model="this.detailsStore.fname" required class="input"/>
                     </div>
 
                     <div class="column">
                         <div class="bold">Last Name</div>
-                        <input type="text" id="lname" placeholder="Enter lastname" v-model="lname" required class="input"/>
+                        <input type="text" id="lname" placeholder="Enter lastname" v-model="this.detailsStore.lname" required class="input"/>
                     </div>
 
                 </div>
 
                 <div class="flex">
                     <div class="bold">Email Address</div>
-                    <h6 v-if="!isValidEmail && this.emailStore.email">Invalid input!</h6>
+                    <h6 v-if="!isValidEmail && this.detailsStore.email">Invalid input!</h6>
                 </div>
-                <input type="email" id="email" placeholder="Enter email address" v-model="this.emailStore.email" class="input"/>
+                <input type="email" id="email" placeholder="Enter email address" v-model="this.detailsStore.email" class="input"/>
 
                 <div class="bold">Phone Number</div>
-                <input type="text" id="pNumber" placeholder="Enter phone number" v-model="pNumber"  class="input" @input="filterNonNumeric()" :maxlength="max"/>
+                <input type="text" id="pNumber" placeholder="Enter phone number" v-model="this.detailsStore.pNumber"  class="input" @input="filterNonNumeric()" :maxlength="max"/>
+                
 
                 <div class="bold">Business Name</div>
-                <input type="text" id="bName" placeholder="Enter business name" v-model="bName"  class="input" required/>
+                <input type="text" id="bName" placeholder="Enter business name" v-model="this.detailsStore.bName"  class="input" required/>
 
                 <div class="bold">Country</div>
-                <select name="countries" v-model="dropdown">
+                <select name="countries" v-model="this.detailsStore.dropdown">
                     <option value="" disabled selected hidden class="disabled"> Select a country </option>
                     <option v-for=" country in countries" :value="country" :key="country"> {{ country }}</option>
                 </select>
@@ -39,7 +40,7 @@
 
 
                 <a class="button link" v-if="!fieldIsFilled" @click="display()">Create Account</a>
-                <RouterLink to="/verification" type="button" class="button link" v-else>Create Account</RouterLink>
+                <RouterLink to="/setpassword" type="button" class="button link" v-else @click="createAccount()">Create Account</RouterLink>
             </form>
             <div>Already have an account?<router-link class="signup link" to="/"> Login </router-link></div>
         </div>
@@ -47,9 +48,10 @@
 </template>
 
 <script>
+    import axios from 'axios';
     import { mapStores } from 'pinia';
     import AuthLayout from '../layout/AuthLayout.vue';
-    import { useEmailStore } from '../stores/email';
+    import { useDetailsStore } from '../stores/details';
 export default {
     components :{ AuthLayout },
     name: 'SignUp',
@@ -252,22 +254,17 @@ export default {
             '   Zimbabwe'  ,
 
             ],
-            fname: '',
-            lname: '',
-            pNumber: '',
-            bName: '',
             show: false,
-            dropdown: '',
             max: 11
         }
     },
     computed: {
-    ...mapStores(useEmailStore),
+    ...mapStores(useDetailsStore),
     isValidEmail() {
-      return /^[^@]+@\w+(\.\w+)+\w$/.test(this.emailStore.email);
+      return /^[^@]+@\w+(\.\w+)+\w$/.test(this.detailsStore.email);
     },
     fieldIsFilled(){
-            return this.fname && this.lname && this.pNumber && this.bName && this.emailStore.email && this.dropdown && this.isValidEmail
+            return this.detailsStore.fname && this.detailsStore.lname && this.detailsStore.pNumber && this.detailsStore.bName && this.detailsStore.email && this.detailsStore.dropdown && this.isValidEmail
         },
     display(){
         this.show = true;
@@ -275,8 +272,20 @@ export default {
     },
     methods: {
         filterNonNumeric() {
-			this.pNumber = this.pNumber.replace(/[^0-9]/g, "");
-		}
+			this.detailsStore.pNumber = this.detailsStore.pNumber.replace(/[^0-9]/g, "");
+		},
+        createAccount(){
+            axios.post(
+                'https://icjjfyhv6b.execute-api.us-east-1.amazonaws.com/dev/authentication/initiate-enrollment',
+                {customerFirstName: this.detailsStore.fname,
+                customerLastName: this.detailsStore.lname,
+                customerEmail: this.detailsStore.email,
+                customerPhone: this.detailsStore.pNumber,
+                customerBusinessName: this.detailsStore.bName,
+                customerCountry: this.detailsStore.dropdown,
+                customerCountryCode: '+234',
+                source: "WEB"},).then((response) =>{console.log(response)}).console.error();
+        }
     }
 }
 </script>
@@ -322,5 +331,17 @@ h6{
     display: flex;
     gap: 10px;
 }
+
+/* Chrome, Safari, Edge, Opera
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+/* input[type=number] {
+  -moz-appearance: textfield;
+} */
     
 </style>

@@ -3,8 +3,7 @@
         <div class="flex-wrapper">
             <div class="sidebar">
                 <div class="logo">
-                    <img src="src/assets/sidebar-icons/logobag.png" class="bag"/>
-                    <img src="src/assets/sidebar-icons/logosmile.png" class="smile"/>
+                    <img src="src/assets/sidebar-icons/afropayslogo.png" class="bag"/>
                     <img src="src/assets/sidebar-icons/Afropays.png" class="writing"/>
                 </div>
                 <div class="menu">
@@ -98,11 +97,6 @@ export default {
     flex-direction: column;
     gap: 10px;
 }
-.smile{
-    position: absolute;
-    left: 60px;
-    top: 32px;
-}
 .bag{
     margin-right: 12px;
 }
@@ -153,12 +147,12 @@ hr{
     width: 18px;
 }
 .second-flex{
-    height: 100vh;
+    height: 100%;
     /* width: 1092px; */
     width: 81%;
     background-color: #f1f3f7;
     position: relative;
-    left: 256px;
+    left: 19%;
 }
 
     

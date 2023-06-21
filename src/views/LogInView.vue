@@ -3,6 +3,7 @@
         <div class="container">
             <h2 class="big_text"> Log in to your account </h2>
             <p>Welcome back! Please enter your details</p>
+            <i class='bx bxs-coffee-bean'></i>
             <form>
                 <div class="bold">Email</div>
                 <input type="email" id="email" placeholder="Enter your email" v-model="email" required class="input"/>
